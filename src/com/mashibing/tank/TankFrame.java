@@ -28,6 +28,7 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g){
+        System.out.println("ceshi commit");
         g.fillRect(x,y,50,50);
     }
 
