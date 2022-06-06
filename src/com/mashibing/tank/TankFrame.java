@@ -5,51 +5,63 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TankFrame extends Frame {
 
-    Tank myTank = new Tank(200,200,Dir.DOWN,this);
-    Bullet b = new Bullet(300,300,Dir.DOWN);
+    Tank myTank = new Tank(200, 200, Dir.DOWN, this);
+
+    List<Bullet> bullets = new ArrayList<>();
+    Bullet b = new Bullet(300, 300, Dir.DOWN, this);
     static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
-    public TankFrame(){
+    public TankFrame() {
         setVisible(true);
         setResizable(false);
         setTitle("Tank War");
-        setSize(GAME_WIDTH,GAME_HEIGHT);
+        setSize(GAME_WIDTH, GAME_HEIGHT);
 
         this.addKeyListener(new MykeyListener());
 
         addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e){
+            public void windowClosing(WindowEvent e) {
                 System.exit(0);
             }
         });
     }
 
     Image offScreenImage = null;
+
     @Override
-    public void update(Graphics  g){
-        if(offScreenImage == null){
-            offScreenImage = this.createImage(GAME_WIDTH,GAME_HEIGHT);
+    public void update(Graphics g) {
+        if (offScreenImage == null) {
+            offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
         }
         Graphics gOffScreen = offScreenImage.getGraphics();
         Color c = gOffScreen.getColor();
         gOffScreen.setColor(Color.BLACK);
-        gOffScreen.fillRect(0,0,GAME_WIDTH,GAME_HEIGHT);
+        gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
         gOffScreen.setColor(c);
         paint(gOffScreen);
-        g.drawImage(offScreenImage,0,0,null);
+        g.drawImage(offScreenImage, 0, 0, null);
     }
 
     @Override
-    public void paint(Graphics g){
+    public void paint(Graphics g) {
+        Color c = g.getColor();
+        g.setColor(Color.WHITE);
+        g.drawString("子弹的数量" + bullets.size(), 10, 60);
+        g.setColor(c);
+
         myTank.paint(g);
-        b.paint(g);
+        for(int i = 0;i<bullets.size();i++){
+            bullets.get(i).paint(g);
+        }
     }
 
-    class MykeyListener extends KeyAdapter{
+    class MykeyListener extends KeyAdapter {
 
         boolean bL = false;
         boolean bU = false;
@@ -57,9 +69,9 @@ public class TankFrame extends Frame {
         boolean bD = false;
 
         @Override
-        public void keyPressed(KeyEvent e){
+        public void keyPressed(KeyEvent e) {
             int key = e.getKeyCode();
-            switch(key){
+            switch (key) {
                 case KeyEvent.VK_LEFT:
                     bL = true;
                     break;
@@ -84,9 +96,9 @@ public class TankFrame extends Frame {
         }
 
         @Override
-        public void keyReleased(KeyEvent e){
+        public void keyReleased(KeyEvent e) {
             int key = e.getKeyCode();
-            switch(key){
+            switch (key) {
                 case KeyEvent.VK_LEFT:
                     bL = false;
                     break;
@@ -105,21 +117,19 @@ public class TankFrame extends Frame {
             setMainTankDir();
         }
 
-        private void setMainTankDir(){
-            if(!bL && !bU && !bR && !bD) {
+        private void setMainTankDir() {
+            if (!bL && !bU && !bR && !bD) {
                 myTank.setMoving(false);
-            }else {
+            } else {
                 myTank.setMoving(true);
-                if(bL) myTank.setDir(Dir.LEFT);
-                if(bU) myTank.setDir(Dir.UP);
-                if(bR) myTank.setDir(Dir.RIGHT);
-                if(bD) myTank.setDir(Dir.DOWN);
+                if (bL) myTank.setDir(Dir.LEFT);
+                if (bU) myTank.setDir(Dir.UP);
+                if (bR) myTank.setDir(Dir.RIGHT);
+                if (bD) myTank.setDir(Dir.DOWN);
             }
         }
 
     }
-
-
 
 
 }
