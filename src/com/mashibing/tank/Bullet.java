@@ -4,14 +4,15 @@ import java.awt.*;
 
 public class Bullet {
     private static final int SPEED = 10;
-    private static final int HEIGHT = 30,WIDTH = 30;
-    private int x,y;
+    public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
+    public static final int WIDTH = ResourceMgr.bulletD.getWidth();
+    private int x, y;
     private Dir dir;
 
     private boolean live = true;
     TankFrame tf = null;
 
-    public Bullet(int x,int y,Dir dir,TankFrame tf){
+    public Bullet(int x, int y, Dir dir, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -19,29 +20,29 @@ public class Bullet {
     }
 
     public void paint(Graphics g) {
-        if(!live){
+        if (!live) {
             tf.bullets.remove(this);
         }
 
-        switch(dir) {
+        switch (dir) {
             case LEFT:
-                g.drawImage(ResourceMgr.bulletL,x,y,null);
+                g.drawImage(ResourceMgr.bulletL, x, y, null);
                 break;
             case UP:
-                g.drawImage(ResourceMgr.bulletU,x,y,null);
+                g.drawImage(ResourceMgr.bulletU, x, y, null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceMgr.bulletR,x,y,null);
+                g.drawImage(ResourceMgr.bulletR, x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.bulletD,x,y,null);
+                g.drawImage(ResourceMgr.bulletD, x, y, null);
                 break;
         }
         move();
     }
 
-    public void move(){
-        switch(dir){
+    public void move() {
+        switch (dir) {
             case LEFT:
                 x -= SPEED;
                 break;
@@ -56,7 +57,7 @@ public class Bullet {
                 break;
         }
 
-        if(x<0 || y<0 || x>TankFrame.GAME_WIDTH||y>TankFrame.GAME_HEIGHT) live = false;
+        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) live = false;
     }
 
 }
