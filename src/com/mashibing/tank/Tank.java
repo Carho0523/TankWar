@@ -61,11 +61,11 @@ public class Tank {
         this.dir = dir;
     }
 
-    public Group getGroup(){
+    public Group getGroup() {
         return group;
     }
 
-    public void setGroup(Group group){
+    public void setGroup(Group group) {
         this.group = group;
     }
 
@@ -104,8 +104,18 @@ public class Tank {
                 y += SPEED;
                 break;
         }
-        if (random.nextInt(10) > 8) this.fire();
+        if (this.group == Group.BAD && random.nextInt(100) > 95) {
+            this.fire();
+        }
 
+        if (this.group == Group.BAD && random.nextInt(100) > 95){
+            randomDir();
+        }
+
+    }
+
+    private void randomDir() {
+        this.dir = Dir.values()[random.nextInt(4)];
     }
 
     public void fire() {
