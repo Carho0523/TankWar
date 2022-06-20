@@ -70,9 +70,7 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        if (!living) {
-            tf.tanks.remove(this);
-        }
+        if (!living) tf.tanks.remove(this);
         switch (dir) {
             case LEFT:
                 g.drawImage(ResourceMgr.tankL, x, y, null);
