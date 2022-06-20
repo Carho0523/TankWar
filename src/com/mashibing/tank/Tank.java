@@ -118,6 +118,7 @@ public class Tank {
             this.fire();
         }
 
+
         if (this.group == Group.BAD && random.nextInt(100) > 95) {
             randomDir();
         }
