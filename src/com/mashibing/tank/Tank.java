@@ -7,8 +7,8 @@ public class Tank {
     private int x, y;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 1;
-    public static final int HEIGHT = ResourceMgr.tankD.getHeight();
-    public static final int WIDTH = ResourceMgr.tankD.getWidth();
+    public static final int HEIGHT = ResourceMgr.tankU.getHeight();
+    public static final int WIDTH = ResourceMgr.tankU.getWidth();
 
     private boolean moving = true;
 
